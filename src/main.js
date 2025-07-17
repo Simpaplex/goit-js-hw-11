@@ -13,7 +13,7 @@ searchForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
-  loader.classList.remove('hidden');
+
 
   const inputText = event.currentTarget.elements['search-text'];
   const clearInputText = inputText.value.trim();
@@ -22,13 +22,13 @@ function handleSubmit(event) {
     iziToast.error({
       title: 'Error',
       message: 'field must not be empty',
-      position: 'center',
+      position: 'topRight',
     });
-    loader.classList.add('hidden');
     return;
   }
 
   listGallery.innerHTML = '';
+  loader.classList.remove('hidden');
 
   getImagesByQuery(clearInputText)
     .then(data => {
@@ -36,7 +36,7 @@ function handleSubmit(event) {
         iziToast.warning({
           title: '⚠️ Warning',
           message: `Sorry, there are no images matching your "${clearInputText}". Please try again!`,
-          position: 'center',
+          position: 'topRight',
           timeout: 4000,
         });
       } else {
@@ -48,7 +48,7 @@ function handleSubmit(event) {
       iziToast.error({
         title: 'Error',
         message: `${error.message}`,
-        position: 'center',
+        position: 'topRight',
       });
     })
     .finally(() => {
