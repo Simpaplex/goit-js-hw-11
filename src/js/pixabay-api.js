@@ -13,8 +13,16 @@ export function getImagesByQuery(query) {
     per_page: 9,
   });
 
-  return axios.get(`${BASE_URL}?${params}`)
-    .then(res => {
-    return res.data;
-  });
+  return axios
+    .get(`${BASE_URL}?${params}`)
+    .then(res => res.data)
+    .catch(error => {
+      iziToast.error({
+        title: 'Error',
+        message: `Failed to retrieve image. Please try again later.`,
+        position: 'topRight',
+        timeout: 4000,
+      });
+      return { hits: [] };
+    });
 }

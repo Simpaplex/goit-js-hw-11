@@ -2,18 +2,20 @@ import iziToast from 'izitoast';
 import 'izitoast/dist/css/iziToast.min.css';
 
 import { getImagesByQuery } from './js/pixabay-api';
-import { createGallery } from './js/render-functions';
-import { refreshLightbox } from './js/render-functions';
+import {
+  createGallery,
+  showLoader,
+  refreshLightbox,
+  hideLoader,
+  clearGallery
+} from './js/render-functions';
 
 const searchForm = document.querySelector('.js-form');
-const listGallery = document.querySelector('.js-gallery');
-const loader = document.querySelector('.loader');
 
 searchForm.addEventListener('submit', handleSubmit);
 
 function handleSubmit(event) {
   event.preventDefault();
-
 
   const inputText = event.currentTarget.elements['search-text'];
   const clearInputText = inputText.value.trim();
@@ -27,8 +29,8 @@ function handleSubmit(event) {
     return;
   }
 
-  listGallery.innerHTML = '';
-  loader.classList.remove('hidden');
+  clearGallery();
+  showLoader();
 
   getImagesByQuery(clearInputText)
     .then(data => {
@@ -40,19 +42,19 @@ function handleSubmit(event) {
           timeout: 4000,
         });
       } else {
-        listGallery.innerHTML = createGallery(data.hits);
+        createGallery(data.hits);
         refreshLightbox();
       }
     })
     .catch(error => {
       iziToast.error({
         title: 'Error',
-        message: `${error.message}`,
+        message: error.message,
         position: 'topRight',
       });
     })
     .finally(() => {
       event.target.reset();
-      loader.classList.add('hidden');
+      hideLoader();
     });
 }
