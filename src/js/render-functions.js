@@ -48,7 +48,7 @@ export function refreshLightbox() {
     lightbox.refresh();
   } else {
     lightbox = new SimpleLightbox('.js-gallery a', {
-      captionsData: 'alt',
+      captionsData: false,
       captionDelay: 500,
       doubleTapZoom: 1.2,
       maxZoom: 4,

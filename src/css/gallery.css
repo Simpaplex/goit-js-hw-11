@@ -51,14 +51,28 @@
 }
 
 .gallery-item {
-  flex: 1 1 calc(33.333% - 40px);
-  max-width: calc((100% - 40px) / 3);
+  flex: 1 1 100%;
+  max-width: 100%;
   background-color: rgba(255, 255, 255, 0.08);
   border: 2px solid #ddd;
   border-radius: 10px;
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   backdrop-filter: blur(3px);
+}
+
+@media screen and (min-width: 768px) {
+  .gallery-item {
+    flex: 1 1 calc(50% - 20px);
+    max-width: calc((100% - 20px) / 2);
+  }
+}
+
+@media screen and (min-width: 1158px) {
+  .gallery-item {
+    flex: 1 1 calc(33.333% - 40px);
+    max-width: calc((100% - 40px) / 3);
+  }
 }
 
 .gallery-item:hover {
