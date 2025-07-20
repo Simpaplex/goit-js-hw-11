@@ -43,7 +43,7 @@ function handleSubmit(event) {
         });
       } else {
         createGallery(data.hits);
-        refreshLightbox();
+        // refreshLightbox();
       }
     })
     .catch(error => {
